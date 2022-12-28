@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsc && node local-test.js",
-    "diff": "tsc && cdk diff",
-    "deploy": "tsc && cdk deploy"
+    "prebuild": "rm -rf dist cdk.out",
+    "build": "tsc",
+    "postbuild": "cp src/lambda/package.json dist/lambda",
+    "prestart": "npm run build",
+    "start": "node local-test.js",
+    "prediff": "npm run build",
+    "diff": "cdk diff",
+    "predeploy": "npm run build",
+    "deploy": "cdk deploy"
   },
   "repository": {
     "type": "git",

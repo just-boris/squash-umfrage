@@ -6,13 +6,40 @@ const app = new cdk.App();
 
 new NotificationStack(app, "StagingNotificationsStack", {
   messages: [
+    // {
+    //   cron: { hour: "*", weekDay: "WED", minute: "48" },
+    //   content: {
+    //     chatId: -842671953,
+    //     poll: {
+    //       question: "Works",
+    //       options: ["yes", "no"],
+    //     },
+    //     forwardChatId: [],
+    //   },
+    // },
+  ],
+});
+
+new NotificationStack(app, "ProdNotificationsStack", {
+  messages: [
     {
-      cron: { hour: "*", weekDay: "2", minute: "30" },
+      cron: { hour: "16", weekDay: "TUE", minute: "00" },
       content: {
-        chatId: -842671953,
+        chatId: -1519346484,
         poll: {
-          question: "Works",
-          options: ["yes", "no"],
+          question: "Сквош Lichtenberg в среду, 10:00",
+          options: ["Буду", "Нет"],
+        },
+        forwardChatId: [],
+      },
+    },
+    {
+      cron: { hour: "16", weekDay: "FRI", minute: "00" },
+      content: {
+        chatId: -1519346484,
+        poll: {
+          question: "Сквош у деда в воскресенье, 18:00",
+          options: ["Буду", "Нет"],
         },
         forwardChatId: [],
       },

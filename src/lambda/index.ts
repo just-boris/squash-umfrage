@@ -1,21 +1,20 @@
-import { EventBridgeEvent } from "aws-lambda";
 import { SquashEvent } from "../interfaces.js";
 
 const base = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`;
 
-export default async function handler({ detail }: EventBridgeEvent<string, SquashEvent>) {
+export async function handler(event: SquashEvent) {
   const poll = await request("sendPoll", {
-    chat_id: detail.chatId,
-    question: detail.poll.question,
-    options: detail.poll.options,
+    chat_id: event.chatId,
+    question: event.poll.question,
+    options: event.poll.options,
     is_anonymous: false,
     allows_multiple_answers: false,
   });
   console.log("poll", poll);
-  for (const forwardTo of detail.forwardChatId) {
+  for (const forwardTo of event.forwardChatId) {
     const forwarded = await request("forwardMessage", {
       chat_id: forwardTo,
-      from_chat_id: detail.chatId,
+      from_chat_id: event.chatId,
       message_id: poll.message_id,
     });
     console.log("forwarded message", forwarded);
