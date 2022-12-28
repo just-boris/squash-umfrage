@@ -7,7 +7,7 @@ const app = new cdk.App();
 new NotificationStack(app, "StagingNotificationsStack", {
   messages: [
     // {
-    //   cron: { hour: "*", weekDay: "WED", minute: "48" },
+    //   cron: { weekDay: "WED", hour: "*", minute: "48" },
     //   content: {
     //     chatId: -842671953,
     //     poll: {
@@ -23,7 +23,7 @@ new NotificationStack(app, "StagingNotificationsStack", {
 new NotificationStack(app, "ProdNotificationsStack", {
   messages: [
     {
-      cron: { hour: "16", weekDay: "TUE", minute: "00" },
+      cron: { weekDay: "TUE", hour: "16", minute: "00" },
       content: {
         chatId: -1519346484,
         poll: {
@@ -34,7 +34,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
       },
     },
     {
-      cron: { hour: "16", weekDay: "FRI", minute: "00" },
+      cron: { weekDay: "FRI", hour: "16", minute: "00" },
       content: {
         chatId: -1519346484,
         poll: {

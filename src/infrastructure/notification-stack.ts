@@ -15,7 +15,7 @@ export class NotificationStack extends cdk.Stack {
     super(scope, id);
 
     const fn = new lambda.Function(this, "SenderLambda", {
-      code: lambda.Code.fromAsset(fileURLToPath(new URL("../lambda", import.meta.url).toString())),
+      code: lambda.Code.fromAsset(fileURLToPath(new URL("../lambda", import.meta.url))),
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: "index.handler",
       timeout: cdk.Duration.seconds(5),

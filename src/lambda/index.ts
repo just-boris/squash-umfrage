@@ -10,14 +10,16 @@ export async function handler(event: SquashEvent) {
     is_anonymous: false,
     allows_multiple_answers: false,
   });
-  console.log("poll", poll);
+  console.log("poll");
+  console.log(prettyPrint(poll));
   for (const forwardTo of event.forwardChatId) {
     const forwarded = await request("forwardMessage", {
       chat_id: forwardTo,
       from_chat_id: event.chatId,
       message_id: poll.message_id,
     });
-    console.log("forwarded message", forwarded);
+    console.log("forwarded message");
+    console.log(prettyPrint(forwarded));
   }
 }
 
@@ -32,7 +34,12 @@ async function request(path: string, data: Record<string, any>) {
     throw new Error(content);
   }
   const json = await response.json();
-  if (json.ok) {
-    return json.result;
+  if (!json.ok) {
+    throw new Error("Unexpected response: " + prettyPrint(json));
   }
+  return json.result;
+}
+
+function prettyPrint(json: any) {
+  return JSON.stringify(json, null, 2);
 }
