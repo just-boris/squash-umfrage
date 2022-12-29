@@ -19,6 +19,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@aws-sdk/client-ssm": "^3.238.0",
     "@types/aws-lambda": "^8.10.109",
     "@types/node": "^18.11.17",
     "aws-cdk": "^2.56.1",

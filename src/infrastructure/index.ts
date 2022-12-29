@@ -6,17 +6,18 @@ const app = new cdk.App();
 
 new NotificationStack(app, "StagingNotificationsStack", {
   messages: [
-    // {
-    //   cron: { weekDay: "WED", hour: "*", minute: "48" },
-    //   content: {
-    //     chatId: -842671953,
-    //     poll: {
-    //       question: "Works",
-    //       options: ["yes", "no"],
-    //     },
-    //     forwardChatId: [],
-    //   },
-    // },
+    {
+      enabled: false,
+      cron: { weekDay: "THU", hour: "*", minute: "*/10" },
+      content: {
+        chatId: -1001602845818,
+        poll: {
+          question: "Works",
+          options: ["yes", "no"],
+        },
+        forwardChatId: [],
+      },
+    },
   ],
 });
 
