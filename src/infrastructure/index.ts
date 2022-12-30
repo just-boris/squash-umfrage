@@ -26,7 +26,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
     {
       cron: { weekDay: "TUE", hour: "16", minute: "00" },
       content: {
-        chatId: -1519346484,
+        chatId: -1001519346484,
         poll: {
           question: "Сквош Lichtenberg в среду, 10:00",
           options: ["Буду", "Нет"],
@@ -37,7 +37,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
     {
       cron: { weekDay: "FRI", hour: "16", minute: "00" },
       content: {
-        chatId: -1519346484,
+        chatId: -1001519346484,
         poll: {
           question: "Сквош у деда в воскресенье, 18:00",
           options: ["Буду", "Нет"],
