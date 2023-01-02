@@ -24,7 +24,7 @@ new NotificationStack(app, "StagingNotificationsStack", {
 new NotificationStack(app, "ProdNotificationsStack", {
   messages: [
     {
-      cron: { weekDay: "TUE", hour: "16", minute: "00" },
+      cron: { weekDay: "MON", hour: "16", minute: "00" },
       content: {
         chatId: -1001519346484,
         poll: {
