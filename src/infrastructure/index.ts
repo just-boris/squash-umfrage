@@ -28,10 +28,21 @@ new NotificationStack(app, "ProdNotificationsStack", {
       content: {
         chatId: -1001519346484,
         poll: {
-          question: "Сквош Lichtenberg в среду, 10:00",
-          options: ["Буду", "Нет"],
+          question: "Squash Wednesday, 10:00, Lichtenberg",
+          options: ["Yes", "No"],
         },
-        forwardChatId: [],
+        forwardChatId: [-1001886657069],
+      },
+    },
+    {
+      cron: { weekDay: "THU", hour: "13", minute: "00" },
+      content: {
+        chatId: -1001886657069,
+        poll: {
+          question: "Squash Saturday, Lichtenberg",
+          options: ["12:30", "Skip"],
+        },
+        forwardChatId: [-1001519346484],
       },
     },
     {

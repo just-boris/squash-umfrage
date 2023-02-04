@@ -28,7 +28,7 @@ async function sendMessages(event: SquashEvent) {
     is_anonymous: false,
     allows_multiple_answers: false,
   });
-  await request("pinChatMessage", { chat_id: event.chatId, message_id: poll.message_id, disable_notification: false });
+  await request("pinChatMessage", { chat_id: event.chatId, message_id: poll.message_id, disable_notification: true });
   await setLastMessage(event.chatId, poll.message_id);
   console.log("poll");
   console.log(prettyPrint(poll));
