@@ -41,7 +41,7 @@ async function sendMessages(event: SquashEvent) {
     await request("pinChatMessage", {
       chat_id: forwardTo,
       message_id: forwarded.message_id,
-      disable_notification: false,
+      disable_notification: true,
     });
     await setLastMessage(forwardTo, forwarded.message_id);
     console.log("forwarded message");
