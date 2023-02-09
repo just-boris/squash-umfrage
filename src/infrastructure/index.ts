@@ -35,7 +35,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
       },
     },
     {
-      cron: { weekDay: "THU", hour: "13", minute: "00" },
+      cron: { weekDay: "WED", hour: "13", minute: "00" },
       content: {
         chatId: -1001886657069,
         poll: {
