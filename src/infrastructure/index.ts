@@ -31,20 +31,21 @@ new NotificationStack(app, "ProdNotificationsStack", {
           question: "Squash Wednesday, 10:00, Lichtenberg",
           options: ["Yes", "No"],
         },
-        forwardChatId: [-1001886657069],
+        forwardChatId: [],
+        // forwardChatId: [-1001886657069],
       },
     },
-    {
-      cron: { weekDay: "WED", hour: "13", minute: "00" },
-      content: {
-        chatId: -1001886657069,
-        poll: {
-          question: "Squash Saturday, Lichtenberg",
-          options: ["12:30", "Skip"],
-        },
-        forwardChatId: [-1001519346484],
-      },
-    },
+    // {
+    //   cron: { weekDay: "WED", hour: "13", minute: "00" },
+    //   content: {
+    //     chatId: -1001886657069,
+    //     poll: {
+    //       question: "Squash Saturday, Lichtenberg",
+    //       options: ["12:30", "Skip"],
+    //     },
+    //     forwardChatId: [-1001519346484],
+    //   },
+    // },
     {
       cron: { weekDay: "FRI", hour: "16", minute: "00" },
       content: {
