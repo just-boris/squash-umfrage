@@ -4,12 +4,16 @@ import { errorToString, prettyPrint } from "./utils.js";
 
 const base = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`;
 
+async function reportError(error: unknown) {
+  await request("sendMessage", { chat_id: 941870, text: errorToString(error) });
+}
+
 export async function handler(event: SquashEvent) {
   try {
     await sendMessages(event);
   } catch (error) {
     try {
-      await request("sendMessage", { chat_id: 941870, text: errorToString(error) });
+      await reportError(error);
     } catch {
       throw error;
     }
@@ -17,9 +21,13 @@ export async function handler(event: SquashEvent) {
 }
 
 async function sendMessages(event: SquashEvent) {
-  const lastPollId = await getLastMessage(event.chatId);
-  if (lastPollId) {
-    await request("unpinChatMessage", { chat_id: event.chatId, message_id: lastPollId });
+  try {
+    const lastPollId = await getLastMessage(event.chatId);
+    if (lastPollId) {
+      await request("unpinChatMessage", { chat_id: event.chatId, message_id: lastPollId });
+    }
+  } catch {
+    // skip if it does not work
   }
   const poll = await request("sendPoll", {
     chat_id: event.chatId,
