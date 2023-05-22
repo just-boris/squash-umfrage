@@ -19,7 +19,7 @@ export class NotificationStack extends cdk.Stack {
       code: lambda.Code.fromAsset(fileURLToPath(new URL("../lambda", import.meta.url))),
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: "index.handler",
-      timeout: cdk.Duration.seconds(5),
+      timeout: cdk.Duration.seconds(30),
       environment: {
         BOT_TOKEN: process.env.BOT_TOKEN!,
       },

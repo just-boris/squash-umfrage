@@ -20,15 +20,24 @@ export async function handler(event: SquashEvent) {
   }
 }
 
-async function sendMessages(event: SquashEvent) {
+async function unpinLastIfExists(chatId: number) {
   try {
-    const lastPollId = await getLastMessage(event.chatId);
+    const lastPollId = await getLastMessage(chatId);
     if (lastPollId) {
-      await request("unpinChatMessage", { chat_id: event.chatId, message_id: lastPollId });
+      await request("unpinChatMessage", { chat_id: chatId, message_id: lastPollId });
     }
   } catch {
     // skip if it does not work
   }
+}
+
+async function pinAndSave(chatId: number, messageId: number) {
+  await request("pinChatMessage", { chat_id: chatId, message_id: messageId, disable_notification: true });
+  await setLastMessage(chatId, messageId);
+}
+
+async function sendMessages(event: SquashEvent) {
+  await unpinLastIfExists(event.chatId);
   const poll = await request("sendPoll", {
     chat_id: event.chatId,
     question: event.poll.question,
@@ -36,22 +45,17 @@ async function sendMessages(event: SquashEvent) {
     is_anonymous: false,
     allows_multiple_answers: false,
   });
-  await request("pinChatMessage", { chat_id: event.chatId, message_id: poll.message_id, disable_notification: true });
-  await setLastMessage(event.chatId, poll.message_id);
+  await pinAndSave(event.chatId, poll.message_id);
   console.log("poll");
   console.log(prettyPrint(poll));
   for (const forwardTo of event.forwardChatId) {
+    await unpinLastIfExists(forwardTo);
     const forwarded = await request("forwardMessage", {
       chat_id: forwardTo,
       from_chat_id: event.chatId,
       message_id: poll.message_id,
     });
-    await request("pinChatMessage", {
-      chat_id: forwardTo,
-      message_id: forwarded.message_id,
-      disable_notification: true,
-    });
-    await setLastMessage(forwardTo, forwarded.message_id);
+    await pinAndSave(forwardTo, forwarded.message_id);
     console.log("forwarded message");
     console.log(prettyPrint(forwarded));
   }
