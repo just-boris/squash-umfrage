@@ -43,7 +43,7 @@ async function sendMessages(event: SquashEvent) {
     question: event.poll.question,
     options: event.poll.options,
     is_anonymous: false,
-    allows_multiple_answers: false,
+    allows_multiple_answers: event.poll.options.length > 2,
   });
   await pinAndSave(event.chatId, poll.message_id);
   console.log("poll");

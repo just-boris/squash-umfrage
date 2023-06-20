@@ -41,10 +41,10 @@ new NotificationStack(app, "ProdNotificationsStack", {
         chatId: -1001886657069,
         poll: {
           question: "Squash Saturday, Lichtenberg",
-          options: ["12:30", "Skip"],
+          options: ["11:45", "12:30", "Skip"],
         },
-        forwardChatId: [],
-        // forwardChatId: [-1001519346484],
+        // forwardChatId: [],
+        forwardChatId: [-1001519346484],
       },
     },
     {
