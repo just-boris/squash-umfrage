@@ -24,7 +24,7 @@ new NotificationStack(app, "StagingNotificationsStack", {
 new NotificationStack(app, "ProdNotificationsStack", {
   messages: [
     {
-      enabled: false,
+      enabled: true,
       cron: { weekDay: "MON", hour: "16", minute: "00" },
       content: {
         chatId: -1001519346484,
@@ -53,7 +53,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
       content: {
         chatId: -1001519346484,
         poll: {
-          question: "Сквош у деда в воскресенье, 18:00",
+          question: "Сквош где-то в воскресенье, 18:00",
           options: ["Буду", "Нет"],
         },
         forwardChatId: [],
