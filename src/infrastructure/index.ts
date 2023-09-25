@@ -49,11 +49,11 @@ new NotificationStack(app, "ProdNotificationsStack", {
       },
     },
     {
-      cron: { weekDay: "FRI", hour: "16", minute: "00" },
+      cron: { weekDay: "THU", hour: "14", minute: "00" },
       content: {
         chatId: -1001519346484,
         poll: {
-          question: "Сквош где-то в воскресенье, 18:00",
+          question: "Сквош Lichtenberg в воскресенье, 18:30",
           options: ["Буду", "Нет"],
         },
         forwardChatId: [],
