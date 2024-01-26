@@ -1,6 +1,6 @@
 import { SquashEvent } from "../interfaces.js";
 import { getLastMessage, setLastMessage } from "./ssm.js";
-import { errorToString, prettyPrint } from "./utils.js";
+import { errorToString, formatMessage, prettyPrint } from "./utils.js";
 
 const base = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`;
 
@@ -40,7 +40,7 @@ async function sendMessages(event: SquashEvent) {
   await unpinLastIfExists(event.chatId);
   const poll = await request("sendPoll", {
     chat_id: event.chatId,
-    question: event.poll.question,
+    question: formatMessage(event.poll.question),
     options: event.poll.options,
     is_anonymous: false,
     allows_multiple_answers: event.poll.options.length > 2,
