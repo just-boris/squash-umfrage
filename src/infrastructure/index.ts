@@ -8,9 +8,10 @@ new NotificationStack(app, "StagingNotificationsStack", {
   messages: [
     {
       enabled: false,
-      cron: { weekDay: "THU", hour: "*", minute: "*/10" },
+      startPollCron: { weekDay: "THU", hour: "*", minute: "*/5" },
+      stopPollCron: { weekDay: "THU", hour: "*", minute: "1/5" },
       content: {
-        chatId: -1001602845818,
+        chatId: -4258103711,
         poll: {
           question: "Works %P3D%",
           options: ["yes", "no"],
@@ -25,7 +26,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
   messages: [
     {
       enabled: true,
-      cron: { weekDay: "MON", hour: "16", minute: "00" },
+      startPollCron: { weekDay: "MON", hour: "16", minute: "00" },
       content: {
         chatId: -1001519346484,
         poll: {
@@ -37,7 +38,8 @@ new NotificationStack(app, "ProdNotificationsStack", {
       },
     },
     {
-      cron: { weekDay: "WED", hour: "13", minute: "00" },
+      enabled: true,
+      startPollCron: { weekDay: "WED", hour: "13", minute: "00" },
       content: {
         chatId: -1001886657069,
         poll: {
@@ -49,7 +51,9 @@ new NotificationStack(app, "ProdNotificationsStack", {
       },
     },
     {
-      cron: { weekDay: "THU", hour: "14", minute: "00" },
+      enabled: true,
+      startPollCron: { weekDay: "THU", hour: "14", minute: "00" },
+      stopPollCron: { weekDay: "SAT", hour: "12", minute: "00" },
       content: {
         chatId: -1001519346484,
         poll: {

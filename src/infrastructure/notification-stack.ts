@@ -8,33 +8,65 @@ import { Construct } from "constructs";
 import { SquashEvent } from "../interfaces.js";
 
 interface NotificationStackProps {
-  messages: Array<{ cron: events.CronOptions; enabled?: boolean; content: SquashEvent }>;
+  messages: Array<{
+    startPollCron: events.CronOptions;
+    stopPollCron?: events.CronOptions;
+    enabled?: boolean;
+    content: SquashEvent;
+  }>;
 }
 
 export class NotificationStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: NotificationStackProps) {
     super(scope, id);
 
-    const fn = new lambda.Function(this, "SenderLambda", {
-      code: lambda.Code.fromAsset(fileURLToPath(new URL("../lambda", import.meta.url))),
+    const code = lambda.Code.fromAsset(fileURLToPath(new URL("../lambda", import.meta.url)));
+
+    const startPollFn = new lambda.Function(this, "SendPollLambda", {
+      code,
       runtime: lambda.Runtime.NODEJS_18_X,
-      handler: "index.handler",
+      handler: "index.sendPollHandler",
       timeout: cdk.Duration.seconds(30),
       environment: {
         BOT_TOKEN: process.env.BOT_TOKEN!,
       },
     });
-    fn.addToRolePolicy(
+    startPollFn.addToRolePolicy(
       new iam.PolicyStatement({ actions: ["ssm:PutParameter", "ssm:GetParameter"], resources: ["*"] })
     );
 
+    const stopPollFn = new lambda.Function(this, "StopPollLambda", {
+      code,
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: "index.stopPollHandler",
+      timeout: cdk.Duration.seconds(30),
+      environment: {
+        BOT_TOKEN: process.env.BOT_TOKEN!,
+      },
+    });
+    stopPollFn.addToRolePolicy(new iam.PolicyStatement({ actions: ["ssm:GetParameter"], resources: ["*"] }));
+
     for (const [index, message] of Object.entries(props.messages)) {
-      new events.Rule(this, "Message" + index, {
+      new events.Rule(this, "StartPollCron" + index, {
         enabled: message.enabled,
-        targets: [new eventsTargets.LambdaFunction(fn, { event: events.RuleTargetInput.fromObject(message.content) })],
+        targets: [
+          new eventsTargets.LambdaFunction(startPollFn, { event: events.RuleTargetInput.fromObject(message.content) }),
+        ],
         // https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions
-        schedule: events.Schedule.cron(message.cron),
+        schedule: events.Schedule.cron(message.startPollCron),
       });
+
+      if (message.stopPollCron) {
+        new events.Rule(this, "StopPollCron" + index, {
+          enabled: message.enabled,
+          targets: [
+            new eventsTargets.LambdaFunction(stopPollFn, {
+              event: events.RuleTargetInput.fromObject(message.content),
+            }),
+          ],
+          schedule: events.Schedule.cron(message.stopPollCron),
+        });
+      }
     }
   }
 }
