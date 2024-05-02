@@ -1,3 +1,5 @@
+import { applyDuration } from "./duration.js";
+
 export function prettyPrint(json: any) {
   return JSON.stringify(json, null, 2);
 }
@@ -10,9 +12,8 @@ export function errorToString(error: unknown) {
 }
 
 export function formatMessage(message: string) {
-  return message.replace(/%DAY\+(\d+)%/g, (_, shift) => {
-    const now = new Date();
-    now.setDate(now.getDate() + parseFloat(shift));
-    return `${now.getDate()}.${(now.getMonth() + 1).toString().padStart(2, "0")}`;
+  return message.replace(/%(\S+)%/g, (_, exp) => {
+    const date = applyDuration(new Date(), exp);
+    return `${date.getDate()}.${(date.getMonth() + 1).toString().padStart(2, "0")}`;
   });
 }
