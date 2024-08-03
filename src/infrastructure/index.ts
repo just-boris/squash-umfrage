@@ -25,7 +25,8 @@ new NotificationStack(app, "StagingNotificationsStack", {
 new NotificationStack(app, "ProdNotificationsStack", {
   messages: [
     {
-      enabled: true,
+      // disabled until September
+      enabled: false,
       startPollCron: { weekDay: "MON", hour: "16", minute: "00" },
       content: {
         chatId: -1001519346484,
@@ -40,6 +41,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
     {
       enabled: true,
       startPollCron: { weekDay: "WED", hour: "13", minute: "00" },
+      stopPollCron: { weekDay: "FRI", hour: "12", minute: "00" },
       content: {
         chatId: -1001886657069,
         poll: {
