@@ -59,7 +59,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
       content: {
         chatId: -1001519346484,
         poll: {
-          question: "Сквош Lichtenberg в воскресенье %P3D%, 18:30",
+          question: "Сквош Wittenau (до сентября) в воскресенье %P3D%, 18:30",
           options: ["Буду", "Нет"],
         },
         forwardChatId: [],
