@@ -25,8 +25,7 @@ new NotificationStack(app, "StagingNotificationsStack", {
 new NotificationStack(app, "ProdNotificationsStack", {
   messages: [
     {
-      // disabled until September
-      enabled: false,
+      enabled: true,
       startPollCron: { weekDay: "MON", hour: "16", minute: "00" },
       content: {
         chatId: -1001519346484,
@@ -59,7 +58,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
       content: {
         chatId: -1001519346484,
         poll: {
-          question: "Сквош Wittenau (до сентября) в воскресенье %P3D%, 18:30",
+          question: "Сквош Lichtenberg в воскресенье %P3D%, 18:30",
           options: ["Буду", "Нет"],
         },
         forwardChatId: [],
