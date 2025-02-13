@@ -45,7 +45,7 @@ new NotificationStack(app, "ProdNotificationsStack", {
         chatId: -1001886657069,
         poll: {
           question: "Squash Saturday %P3D%, Lichtenberg",
-          options: ["11:45", "12:30", "Skip"],
+          options: ["11:00 (training)", "11:45", "12:30", "Skip"],
         },
         // forwardChatId: [],
         forwardChatId: [-1001519346484],
