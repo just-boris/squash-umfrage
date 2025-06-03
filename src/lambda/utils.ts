@@ -12,8 +12,15 @@ export function errorToString(error: unknown) {
 }
 
 export function formatMessage(message: string) {
-  return message.replace(/%(\S+)%/g, (_, exp) => {
+  let result = message.replace(/%(\S+)%/g, (_, exp) => {
     const date = applyDuration(new Date(), exp);
     return `${date.getDate()}.${(date.getMonth() + 1).toString().padStart(2, "0")}`;
   });
+
+  if (result.includes("8.06")) {
+    // Pfingstmontag
+    result = result.replace("8.06", "9.06").replace("воскресенье", "понедельник");
+  }
+
+  return result;
 }
