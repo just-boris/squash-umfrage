@@ -24,7 +24,7 @@ export class NotificationStack extends cdk.Stack {
 
     const startPollFn = new lambda.Function(this, "SendPollLambda", {
       code,
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_LATEST,
       handler: "index.sendPollHandler",
       timeout: cdk.Duration.seconds(30),
       environment: {
@@ -37,7 +37,7 @@ export class NotificationStack extends cdk.Stack {
 
     const stopPollFn = new lambda.Function(this, "StopPollLambda", {
       code,
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_LATEST,
       handler: "index.stopPollHandler",
       timeout: cdk.Duration.seconds(30),
       environment: {
