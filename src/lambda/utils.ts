@@ -17,9 +17,9 @@ export function formatMessage(message: string) {
     return `${date.getDate()}.${(date.getMonth() + 1).toString().padStart(2, "0")}`;
   });
 
-  if (result.includes("8.06")) {
-    // Pfingstmontag
-    result = result.replace("8.06", "9.06").replace("воскресенье", "понедельник");
+  if (result.includes("5.04")) {
+    // Ostern
+    result = result.replace("5.04", "6.04").replace("воскресенье", "понедельник");
   }
 
   return result;
